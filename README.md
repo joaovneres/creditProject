@@ -1,2 +1,2 @@
 # creditProject
-Repositório para entrega de projeto prática na matéria de Desenvolvimento para Servidores II
+Repositório para entrega de projeto prático, desenvolvido em NodeJS, para matéria de Desenvolvimento para Servidores II
