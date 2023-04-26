@@ -13,7 +13,7 @@ export function isAuthenticated(
   const authToken = req.headers.authorization;
 
   if (!authToken) {
-    return res.status(401).end();
+    return res.status(401).json({ status: "Compra não autorizada" }).end();
   }
 
   const [, token] = authToken.split(" ");
@@ -23,6 +23,6 @@ export function isAuthenticated(
     return next();
   } catch (error) {
     console.log(error);
-    return res.status(401).end();
+    return res.status(401).json({ status: "Compra não autorizada" }).end();
   }
 }

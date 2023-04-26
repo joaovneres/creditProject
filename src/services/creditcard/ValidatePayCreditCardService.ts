@@ -5,7 +5,7 @@ interface PayLoad {
   sub: string;
 }
 
-class DetailsCreditCardService {
+class ValidatePayCreditCardService {
   async execute(authToken: string) {
     const [, token] = authToken.split(" ");
     const { sub } = verify(token, process.env.JWT_SECRET) as PayLoad;
@@ -14,20 +14,14 @@ class DetailsCreditCardService {
       where: {
         id: sub,
       },
-      select: {
-        id: true,
-        nome_dono: true,
-        numero_cartao: true,
-        data_exp: true,
-      },
     });
 
     if (!creditCard) {
-      throw new Error("Cartão não encontrado");
+      throw new Error("Cartão não encontrado.");
     }
 
-    return { creditCard };
+    return { status: "Compra autorizada" };
   }
 }
 
-export { DetailsCreditCardService };
+export { ValidatePayCreditCardService };

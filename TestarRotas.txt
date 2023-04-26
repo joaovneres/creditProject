@@ -21,7 +21,7 @@ JSON:
 
 Rota para login: 
 
-localhost:3334/login
+localhost:3334/session
 
 JSON:
 
@@ -35,7 +35,7 @@ JSON:
 
 Rota para pegar informações do cartão: 
 
-localhost:3334/cardinfo
+localhost:3334/pay
 
 OBS: Realize o cadastro, depois siga o
 fluxo no postman:
