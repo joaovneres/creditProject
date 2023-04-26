@@ -3,11 +3,11 @@ import { AuthCreditCardService } from "../../services/creditcard/AuthCreditCardS
 
 class AuthCreditCardController {
   async handle(req: Request, res: Response) {
-    const { numero_cartao, cod_seguranca } = req.body;
+    const { numeroCartao, codSeguranca } = req.body;
     const authCreditCardService = new AuthCreditCardService();
     const auth = await authCreditCardService.execute({
-      numero_cartao,
-      cod_seguranca,
+      numeroCartao,
+      codSeguranca,
     });
     return res.json(auth);
   }

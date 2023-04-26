@@ -4,17 +4,17 @@ import { compare } from "bcryptjs";
 import { sign } from "jsonwebtoken";
 
 const CreditCardAuthRequest = object({
-  numero_cartao: size(string(), 16, 16),
-  cod_seguranca: size(string(), 3, 3),
+  numeroCartao: size(string(), 16, 16),
+  codSeguranca: size(string(), 3, 3),
 });
 
 type AuthRequest = Infer<typeof CreditCardAuthRequest>;
 
 class AuthCreditCardService {
-  async execute({ numero_cartao, cod_seguranca }: AuthRequest) {
+  async execute({ numeroCartao, codSeguranca }: AuthRequest) {
     const creditCard = await prismaClient.creditCard.findFirst({
       where: {
-        numero_cartao: numero_cartao,
+        numero_cartao: numeroCartao,
       },
     });
 
@@ -23,7 +23,7 @@ class AuthCreditCardService {
     }
 
     const codSegurancaMatch = await compare(
-      cod_seguranca,
+      codSeguranca,
       creditCard.cod_seguranca
     );
 

@@ -3,34 +3,34 @@ import prismaClient from "../../prisma";
 import { hash } from "bcryptjs";
 
 const CreditCard = object({
-  nome_dono: size(string(), 4, 50),
-  numero_cartao: size(string(), 16, 16),
-  data_exp: size(string(), 7, 7),
-  cod_seguranca: size(string(), 3, 3),
+  nomeDono: size(string(), 4, 50),
+  numeroCartao: size(string(), 16, 16),
+  dataExp: size(string(), 7, 7),
+  codSeguranca: size(string(), 3, 3),
 });
 
 type CreditCardRequest = Infer<typeof CreditCard>;
 
 class CreateCreditCardService {
   async execute({
-    nome_dono,
-    numero_cartao,
-    data_exp,
-    cod_seguranca,
+    nomeDono,
+    numeroCartao,
+    dataExp,
+    codSeguranca,
   }: CreditCardRequest) {
-    if (!nome_dono) {
+    if (!nomeDono) {
       throw new Error("Nome não enviado.");
     }
-    if (!numero_cartao) {
+    if (!numeroCartao) {
       throw new Error("Número do cartão não enviado.");
     }
-    if (!data_exp) {
+    if (!dataExp) {
       throw new Error("Data de expiração não enviada.");
     } else {
       const data = new Date();
       const ano = data.getFullYear();
       const mes = data.getMonth() + 1;
-      const [mesReq, anoReq] = data_exp.split("/");
+      const [mesReq, anoReq] = dataExp.split("/");
       if (ano > Number(anoReq)) {
         throw new Error("Ano de expiração inválido.");
       } else {
@@ -39,27 +39,27 @@ class CreateCreditCardService {
         }
       }
     }
-    if (!cod_seguranca) {
+    if (!codSeguranca) {
       throw new Error("Código de segurança não enviado.");
     }
 
-    const CreditCardExists = await prismaClient.creditCard.findFirst({
+    const creditCardExists = await prismaClient.creditCard.findFirst({
       where: {
-        numero_cartao: numero_cartao,
+        numero_cartao: numeroCartao,
       },
     });
 
-    if (CreditCardExists) {
+    if (creditCardExists) {
       throw new Error("Número de cartão já cadastrado!");
     }
 
-    const codSegurancaHash = await hash(cod_seguranca, 8);
+    const codSegurancaHash = await hash(codSeguranca, 8);
 
     const creditCard = await prismaClient.creditCard.create({
       data: {
-        nome_dono: nome_dono,
-        numero_cartao: numero_cartao,
-        data_exp: data_exp,
+        nome_dono: nomeDono,
+        numero_cartao: numeroCartao,
+        data_exp: dataExp,
         cod_seguranca: codSegurancaHash,
       },
       select: {

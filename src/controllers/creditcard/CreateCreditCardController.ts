@@ -3,13 +3,13 @@ import { CreateCreditCardService } from "../../services/creditcard/CreateCreditC
 
 class CreateCreditCardController {
   async handle(req: Request, res: Response) {
-    const { nome_dono, numero_cartao, data_exp, cod_seguranca } = req.body;
+    const { nomeDono, numeroCartao, dataExp, codSeguranca } = req.body;
     const createCreditCardService = new CreateCreditCardService();
     const creditCard = await createCreditCardService.execute({
-      nome_dono,
-      numero_cartao,
-      data_exp,
-      cod_seguranca,
+      nomeDono,
+      numeroCartao,
+      dataExp,
+      codSeguranca,
     });
 
     return res.json(creditCard);
