@@ -1,9 +1,9 @@
-import { Router, Request, Response } from "express";
+import { Router } from "express";
+import { CreateCreditCardController } from "./controllers/creditcard/CreateCreditCardController";
 
 const router = Router();
 
-router.get("/teste", (req: Request, res: Response) => {
-  return res.json({ nome: "João Neres" });
-});
+// ------- Rotas para CreditCard ------- //
+router.post("/creditcard", new CreateCreditCardController().handle);
 
 export { router };

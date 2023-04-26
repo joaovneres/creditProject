@@ -10,7 +10,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model creditcard {
+model CreditCard {
   id String @id @default(uuid())
   nome_dono String @db.VarChar(50)
   numero_cartao String @unique @db.VarChar(16)
@@ -18,5 +18,5 @@ model creditcard {
   cod_seguranca String @db.VarChar(3)
   cadastrado_em DateTime? @default(now())
 
-  @@map("CreditCard")
+  @@map("creditcard")
 }
