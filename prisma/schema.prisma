@@ -15,7 +15,7 @@ model CreditCard {
   nome_dono String @db.VarChar(50)
   numero_cartao String @unique @db.VarChar(16)
   data_exp String @db.VarChar(7)
-  cod_seguranca String @db.VarChar(3)
+  cod_seguranca String
   cadastrado_em DateTime? @default(now())
 
   @@map("creditcard")

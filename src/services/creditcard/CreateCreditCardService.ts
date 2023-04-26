@@ -9,7 +9,12 @@ const CreditCard = object({
   codSeguranca: size(string(), 3, 3),
 });
 
-type CreditCardRequest = Infer<typeof CreditCard>;
+interface CreditCardRequest {
+  nomeDono: string;
+  numeroCartao: string;
+  dataExp: string;
+  codSeguranca: string;
+}
 
 class CreateCreditCardService {
   async execute({
@@ -18,6 +23,9 @@ class CreateCreditCardService {
     dataExp,
     codSeguranca,
   }: CreditCardRequest) {
+    if (!CreditCard.is({ nomeDono, numeroCartao, dataExp, codSeguranca })) {
+      throw new Error("Dados inválidos.");
+    }
     if (!nomeDono) {
       throw new Error("Nome não enviado.");
     }
@@ -32,10 +40,10 @@ class CreateCreditCardService {
       const mes = data.getMonth() + 1;
       const [mesReq, anoReq] = dataExp.split("/");
       if (ano > Number(anoReq)) {
-        throw new Error("Ano de expiração inválido.");
+        throw new Error("Ano de expiração menor que o atual.");
       } else {
         if (mes > Number(mesReq)) {
-          throw new Error("Mês de expiração inválido.");
+          throw new Error("Mês de expiração menor que o atual.");
         }
       }
     }
