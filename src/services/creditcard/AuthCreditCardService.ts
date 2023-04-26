@@ -35,7 +35,6 @@ class AuthCreditCardService {
       {
         nomeDono: creditCard.nome_dono,
         numeroCartao: creditCard.numero_cartao,
-        dataExp: creditCard.data_exp,
       },
       process.env.JWT_SECRET,
       {
@@ -47,7 +46,6 @@ class AuthCreditCardService {
       id: creditCard.id,
       nomeDono: creditCard.nome_dono,
       numeroCartao: creditCard.numero_cartao,
-      dataExp: creditCard.data_exp,
       token: token,
     };
   }
